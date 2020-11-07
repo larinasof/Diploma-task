@@ -21,7 +21,7 @@ public class DataSQL {
     }
 
     public static String getPaymentStatus() {
-        val paymentStatus = "SELECT status FROM payment_data WHERE created >= DATE_SUB(NOW(), INTERVAL 3 SECOND);";
+        val paymentStatus = "SELECT status FROM payment_entity WHERE created >= DATE_SUB(NOW(), INTERVAL 3 SECOND);";
         try (
                 val conn = runConnection();
                 val countStmt = conn.createStatement();
@@ -39,7 +39,7 @@ public class DataSQL {
     }
 
     public static String getCreditStatus() {
-        val select = "SELECT status FROM credit_data WHERE created  >= DATE_SUB(NOW(), INTERVAL 3 SECOND);";
+        val select = "SELECT status FROM credit_request_entity WHERE created  >= DATE_SUB(NOW(), INTERVAL 3 SECOND);";
         try (
                 val conn = runConnection();
                 val countStmt = conn.createStatement();
@@ -57,7 +57,7 @@ public class DataSQL {
     }
 
     public static String getOrderPaymentId() {
-        val select = "SELECT payment_id FROM order_data WHERE created >= DATE_SUB(NOW(), INTERVAL 3 SECOND);";
+        val select = "SELECT payment_id FROM order_entity WHERE created >= DATE_SUB(NOW(), INTERVAL 3 SECOND);";
         try (
                 val conn = runConnection();
                 val countStmt = conn.createStatement();
@@ -75,7 +75,7 @@ public class DataSQL {
     }
 
     public static String getOrderCreditId() {
-        val select = "SELECT credit_id FROM order_data WHERE created >= DATE_SUB(NOW(), INTERVAL 3 SECOND);";
+        val select = "SELECT credit_id FROM order_entity WHERE created >= DATE_SUB(NOW(), INTERVAL 3 SECOND);";
         try (
                 val conn = runConnection();
                 val countStmt = conn.createStatement();
@@ -93,7 +93,7 @@ public class DataSQL {
     }
 
     public static String getCreditId() {
-        val select = "SELECT bank_id FROM credit_data WHERE created >= DATE_SUB(NOW(), INTERVAL 3 SECOND);";
+        val select = "SELECT bank_id FROM credit_request_entity WHERE created >= DATE_SUB(NOW(), INTERVAL 3 SECOND);";
         try (
                 val conn = runConnection();
                 val countStmt = conn.createStatement();
@@ -111,7 +111,7 @@ public class DataSQL {
     }
 
     public static String getPaymentId() {
-        val select = "SELECT transaction_id FROM payment_data WHERE created  >= DATE_SUB(NOW(), INTERVAL 3 SECOND);";
+        val select = "SELECT transaction_id FROM payment_entity WHERE created  >= DATE_SUB(NOW(), INTERVAL 3 SECOND);";
         try (
                 val conn = runConnection();
                 val countStmt = conn.createStatement();
@@ -129,15 +129,15 @@ public class DataSQL {
     }
 
     public static void cleanTables() {
-        val deleteCreditData = "DELETE FROM credit_data";
-        val deleteOrderData = "DELETE FROM order_data";
-        val deletePaymentData = "DELETE FROM payment_data";
+        val deleteCreditRequestEntity = "DELETE FROM credit_request_entity";
+        val deleteOrderEntity = "DELETE FROM order_entity";
+        val deletePaymentEntity = "DELETE FROM payment_entity";
         try (
                 val conn = runConnection();
         ) {
-            runner.update(conn, deleteCreditData);
-            runner.update(conn, deletePaymentData);
-            runner.update(conn, deleteOrderData);
+            runner.update(conn, deleteCreditRequestEntity);
+            runner.update(conn, deleteOrderEntity);
+            runner.update(conn, deletePaymentEntity);
             System.out.println("Tables are clean");
         } catch (SQLException e) {
             System.out.println(e.getMessage());

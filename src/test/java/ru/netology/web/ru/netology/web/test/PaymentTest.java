@@ -23,10 +23,10 @@ public class PaymentTest {
     private static String approvedCard = "APPROVED";
     private static String declinedCard = "DECLINED";
 
-//    @BeforeAll
-//    static void setUpAll() {
-//        SelenideLogger.addListener("allure", new AllureSelenide());
-//    }
+    @BeforeAll
+    static void setUpAll() {
+        SelenideLogger.addListener("allure", new AllureSelenide());
+    }
 
     @BeforeEach
     void setUp() {
@@ -35,7 +35,7 @@ public class PaymentTest {
 
     @AfterAll
     static void AllureReport() {
-//        SelenideLogger.removeListener("allure");
+        SelenideLogger.removeListener("allure");
         DataSQL.cleanTables();
     }
 
@@ -146,5 +146,114 @@ public class PaymentTest {
 
         val orderPaymentId = DataSQL.getOrderPaymentId();
         assertNull(orderPaymentId);
+    }
+
+    @Test
+    void shouldCreditWithApprovedCard() {
+        mainPage.openCreditPage();
+        CardData card = DataHelper.getApprovedCard();
+        paymentPage.payment(card);
+        paymentPage.paymentVerify();
+
+        val actual = DataSQL.getCreditStatus();
+        assertEquals(approvedCard, actual);
+
+        val creditId = DataSQL.getCreditId();
+        val creditOrderId = DataSQL.getOrderCreditId();
+        assertEquals(creditId, creditOrderId);
+    }
+
+    @Test
+    void shouldCreditWithDeclinedCard() {
+        mainPage.openCreditPage();
+        CardData card = DataHelper.getDeclinedCard();
+        paymentPage.payment(card);
+        paymentPage.paymentError();
+
+        val actual = DataSQL.getCreditStatus();
+        assertEquals(declinedCard, actual);
+
+        val creditId = DataSQL.getCreditId();
+        val creditOrderId = DataSQL.getOrderCreditId();
+        assertEquals(creditId, creditOrderId);
+    }
+
+    @Test
+    void shouldCreditWithInvalidNumberCard() {
+        mainPage.openCreditPage();
+        CardData card = DataHelper.getInvalidNumberCard();
+        paymentPage.payment(card);
+        paymentPage.paymentError();
+
+        val creditOrderId = DataSQL.getOrderCreditId();
+        assertNull(creditOrderId);
+    }
+
+    @Test
+    void shouldCreditWithInvalidFormatCard() {
+        mainPage.openCreditPage();
+        CardData card = DataHelper.getInvalidFormatNumberCard();
+        paymentPage.payment(card);
+        paymentPage.cardNumberError();
+
+        val creditOrderId = DataSQL.getOrderCreditId();
+        assertNull(creditOrderId);
+    }
+
+    @Test
+    void shouldCreditWithExpiredCard() {
+        mainPage.openCreditPage();
+        CardData card = DataHelper.getExpiredCard();
+        paymentPage.payment(card);
+        String actual = paymentPage.cardYearError();
+        assertEquals("Истёк срок действия карты", actual);
+
+        val creditOrderId = DataSQL.getOrderCreditId();
+        assertNull(creditOrderId);
+    }
+
+    @Test
+    void shouldCreditWithInvalidYearCard() {
+        mainPage.openCreditPage();
+        CardData card = DataHelper.getInvalidYearCard();
+        paymentPage.payment(card);
+        String actual = paymentPage.cardYearError();
+        assertEquals("Неверно указан срок действия карты", actual);
+
+        val creditOrderId = DataSQL.getOrderCreditId();
+        assertNull(creditOrderId);
+    }
+
+    @Test
+    void shouldCreditWithInvalidMonthCard() {
+        mainPage.openCreditPage();
+        CardData card = DataHelper.getInvalidMonthCard();
+        paymentPage.payment(card);
+        paymentPage.cardMonthError();
+
+        val creditOrderId = DataSQL.getOrderCreditId();
+        assertNull(creditOrderId);
+    }
+
+    @Test
+    void shouldCreditWithInvalidOwnerCard() {
+        mainPage.openCreditPage();
+        CardData card = DataHelper.getInvalidOwnerCard();
+        paymentPage.payment(card);
+        paymentPage.cardOwnerError();
+
+        val creditOrderId = DataSQL.getOrderCreditId();
+        assertNull(creditOrderId);
+    }
+
+    @Test
+    void shouldCreditWithInvalidCVCCard() {
+        mainPage.openCreditPage();
+        CardData card = DataHelper.getInvalidCVCCard();
+        paymentPage.payment(card);
+        paymentPage.cardCVCError();
+
+        val creditOrderId = DataSQL.getOrderCreditId();
+        assertNull(creditOrderId);
     }
 }

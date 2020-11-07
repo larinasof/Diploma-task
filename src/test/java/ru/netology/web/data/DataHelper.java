@@ -2,10 +2,9 @@ package ru.netology.web.data;
 
 import com.github.javafaker.Faker;
 import java.time.Year;
-import java.util.Locale;
 
 public class DataHelper {
-    private static final Faker faker = new Faker(new Locale("en"));
+    private static final Faker faker = new Faker();
 
     private static final String approvedCardNumber = "4444 4444 4444 4441";
     private static final String declinedCardNumber = "4444 4444 4444 4442";
@@ -16,8 +15,8 @@ public class DataHelper {
     public static CardData CardData(String cardNumber) {
         String month = String.format("%02d", faker.number().numberBetween(1, 12));
         int currentYear = Year.now().getValue() % 100;
-        String year = String.valueOf(faker.number().numberBetween(currentYear + 1, currentYear + 5));
-        String owner = faker.name().name();
+        String year = String.valueOf(faker.number().numberBetween(currentYear + 2, currentYear + 5));
+        String owner = "Ivan Ivanov";
         String cvc = String.format("%03d", faker.number().numberBetween(1, 999));
         return new CardData(cardNumber, month, year, owner, cvc);
     }
@@ -38,7 +37,7 @@ public class DataHelper {
 
     public static CardData getExpiredCard() {
         CardData cardData = CardData(approvedCardNumber);
-        cardData.setCardYear("2019");
+        cardData.setCardYear("19");
         return cardData;
     }
 

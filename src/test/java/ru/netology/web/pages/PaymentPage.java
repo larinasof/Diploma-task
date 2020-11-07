@@ -37,11 +37,11 @@ public class PaymentPage {
     }
 
     public void paymentVerify() {
-        successNotification.shouldBe(Condition.visible);
+        successNotification.waitUntil(Condition.visible, 15000);
     }
 
     public void paymentError() {
-        errorNotification.shouldBe(Condition.visible);
+        errorNotification.waitUntil(Condition.visible, 15000);
     }
 
     public void cardNumberError() {
