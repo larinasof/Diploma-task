@@ -13,7 +13,7 @@ public class DataSQL {
     public static Connection runConnection() {
         Connection conn = null;
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://192.168.99.101:3306/app", "app", "pass");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/app", "app", "pass");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
