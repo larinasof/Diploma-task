@@ -11,7 +11,9 @@
 
 Для тестирования создано 18 автотестов, которые перечислены в [Плане автоматизации](https://github.com/larinasof/Diploma-task/blob/master/Documentation/PLAN.md). 
 
-Для удобного ознакомления с результатами тестирования подключена система отчетности Allure. 
+Для удобного ознакомления с результатами тестирования подключена система отчетности Allure.
+![](https://github.com/larinasof/Diploma-task/blob/master/allure%20reports/summary%20report.jpg?raw=true)
+![](https://github.com/larinasof/Diploma-task/blob/master/allure%20reports/tests%20report.jpg?raw=true)
 
 ### Результат тестирования:
 * 13 тестов проходят успешно (72,22 %);
