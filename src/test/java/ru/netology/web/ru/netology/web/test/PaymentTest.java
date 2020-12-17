@@ -86,9 +86,6 @@ public class PaymentTest {
         CardData card = DataHelper.getInvalidFormatNumberCard();
         paymentPage.payment(card);
         paymentPage.cardNumberError();
-
-        val orderPaymentId = DataSQL.getOrderPaymentId();
-        assertNull(orderPaymentId);
     }
 
     @Test
@@ -98,9 +95,6 @@ public class PaymentTest {
         paymentPage.payment(card);
         String actual = paymentPage.cardYearError();
         assertEquals("Истёк срок действия карты", actual);
-
-        val orderPaymentId = DataSQL.getOrderPaymentId();
-        assertNull(orderPaymentId);
     }
 
     @Test
@@ -110,9 +104,6 @@ public class PaymentTest {
         paymentPage.payment(card);
         String actual = paymentPage.cardYearError();
         assertEquals("Неверно указан срок действия карты", actual);
-
-        val orderPaymentId = DataSQL.getOrderPaymentId();
-        assertNull(orderPaymentId);
     }
 
     @Test
@@ -121,9 +112,6 @@ public class PaymentTest {
         CardData card = DataHelper.getInvalidMonthCard();
         paymentPage.payment(card);
         paymentPage.cardMonthError();
-
-        val orderPaymentId = DataSQL.getOrderPaymentId();
-        assertNull(orderPaymentId);
     }
 
     @Test
@@ -132,9 +120,6 @@ public class PaymentTest {
         CardData card = DataHelper.getInvalidOwnerCard();
         paymentPage.payment(card);
         paymentPage.cardOwnerError();
-
-        val orderPaymentId = DataSQL.getOrderPaymentId();
-        assertNull(orderPaymentId);
     }
 
     @Test
@@ -143,9 +128,6 @@ public class PaymentTest {
         CardData card = DataHelper.getInvalidCVCCard();
         paymentPage.payment(card);
         paymentPage.cardCVCError();
-
-        val orderPaymentId = DataSQL.getOrderPaymentId();
-        assertNull(orderPaymentId);
     }
 
     @Test
@@ -195,9 +177,6 @@ public class PaymentTest {
         CardData card = DataHelper.getInvalidFormatNumberCard();
         paymentPage.payment(card);
         paymentPage.cardNumberError();
-
-        val creditOrderId = DataSQL.getOrderCreditId();
-        assertNull(creditOrderId);
     }
 
     @Test
@@ -207,9 +186,6 @@ public class PaymentTest {
         paymentPage.payment(card);
         String actual = paymentPage.cardYearError();
         assertEquals("Истёк срок действия карты", actual);
-
-        val creditOrderId = DataSQL.getOrderCreditId();
-        assertNull(creditOrderId);
     }
 
     @Test
@@ -219,9 +195,6 @@ public class PaymentTest {
         paymentPage.payment(card);
         String actual = paymentPage.cardYearError();
         assertEquals("Неверно указан срок действия карты", actual);
-
-        val creditOrderId = DataSQL.getOrderCreditId();
-        assertNull(creditOrderId);
     }
 
     @Test
@@ -230,9 +203,6 @@ public class PaymentTest {
         CardData card = DataHelper.getInvalidMonthCard();
         paymentPage.payment(card);
         paymentPage.cardMonthError();
-
-        val creditOrderId = DataSQL.getOrderCreditId();
-        assertNull(creditOrderId);
     }
 
     @Test
@@ -241,9 +211,6 @@ public class PaymentTest {
         CardData card = DataHelper.getInvalidOwnerCard();
         paymentPage.payment(card);
         paymentPage.cardOwnerError();
-
-        val creditOrderId = DataSQL.getOrderCreditId();
-        assertNull(creditOrderId);
     }
 
     @Test
@@ -252,8 +219,5 @@ public class PaymentTest {
         CardData card = DataHelper.getInvalidCVCCard();
         paymentPage.payment(card);
         paymentPage.cardCVCError();
-
-        val creditOrderId = DataSQL.getOrderCreditId();
-        assertNull(creditOrderId);
     }
 }
